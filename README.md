@@ -1,6 +1,6 @@
 # Northcoders News API
 
-For instructions, please head over to [L2C NC News](https://l2c.northcoders.com/courses/be/nc-news).
+To connect to the databases locally, please create two environment variables of the databases listed in 'setup.sql', respectively. These have been added to gitignore.
 
 
 
