@@ -19,6 +19,27 @@ describe("GET /api/topics", () => {
                 })
             })
     })
+    test("200 - returns documentation on available endpoints", () => {
+        return request(app)
+            .get("/api")
+            .expect(200)
+            .then(({ body }) => {
+                const endpoints = Object.entries(body.endpoints)
+                endpoints.forEach((endpoint) => {
+                    const apiRegex = /\/api/
+                    expect(apiRegex.test(endpoint[0])).toBe(true) 
+                    if(endpoint[1].description){
+                        expect(typeof endpoint[1].description).toBe("string")
+                    }
+                    if(endpoint[1].queries){
+                        expect(typeof endpoint[1].queries).toBe("object")
+                    }
+                    if(endpoint[1].exampleResponse){
+                        expect(typeof endpoint[1].exampleResponse).toBe("object")
+                    }
+                })
+            })
+    })
 })
 
 describe("General Error Handling", () => {
