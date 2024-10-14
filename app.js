@@ -5,6 +5,8 @@ const fs = require("fs/promises")
 //---Controller Functions---
 //Topics controllers
 const { getTopics} = require("./controllers/topics.controller.js")
+//Article controllers
+const { getArticle } = require("./controllers/articles.controller.js")
 
 //--Endpoints--
 app.get("/api", (req, res) => {
@@ -15,6 +17,8 @@ app.get("/api", (req, res) => {
 })
 
 app.get("/api/topics", getTopics)
+
+app.get("/api/articles/:article_id", getArticle)
 
 
 
