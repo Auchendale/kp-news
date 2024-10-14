@@ -1,12 +1,21 @@
 const express = require('express')
 const app = express()
+const fs = require("fs/promises")
 
 //---Controller Functions---
 //Topics controllers
-const { getTopics } = require("./controllers/topics.controller.js")
+const { getTopics} = require("./controllers/topics.controller.js")
 
 //--Endpoints--
+app.get("/api", (req, res) => {
+    fs.readFile("./endpoints.json", "utf-8").then((availableEndpoints) => {
+        const parsedEndpoints = JSON.parse(availableEndpoints)
+        res.status(200).send({endpoints: parsedEndpoints})
+    })
+})
+
 app.get("/api/topics", getTopics)
+
 
 
 //--Errors--
