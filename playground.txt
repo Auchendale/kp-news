@@ -1,11 +1,7 @@
-You are now connected to database "nc_news" as user "kp".
- comment_id |                                                                                                                                            body                                                                                                                                             | article_id |   author   | votes |     created_at      
-------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------+------------+-------+---------------------
-         63 | Est pariatur quis ipsa culpa unde temporibus et accusantium rerum. Consequatur in occaecati aut non similique aut quibusdam. Qui sunt magnam iure blanditiis. Et est non enim. Est ab vero dolor.                                                                                           |          2 | jessjelly  |    -1 | 2020-08-12 23:10:00
-        102 | Quia quos adipisci sint expedita voluptatem id ut at accusantium. Et ex itaque recusandae aut quo. Quia quam similique eum quidem iusto. Aspernatur ducimus vitae vel natus doloribus qui id. Excepturi voluptatem qui quia sit qui eveniet voluptatem. Fugit itaque libero quibusdam sunt. |          2 | jessjelly  |    10 | 2020-09-14 12:13:00
-        134 | Nam qui vel neque aut. Quas quos nisi. Eum praesentium quasi commodi saepe assumenda sed vel. Nostrum qui magnam aut occaecati exercitationem aut voluptatibus.                                                                                                                             |          2 | jessjelly  |     7 | 2020-05-04 18:21:00
-        152 | Animi id fuga culpa voluptates sint qui. Nostrum deleniti optio quo quas eveniet excepturi voluptates voluptatem totam. Provident dolores nesciunt dignissimos quisquam laboriosam iusto aut recusandae est.                                                                                |          2 | grumpy19   |    18 | 2020-09-10 03:16:00
-        162 | Et suscipit maxime sit sunt consequuntur consequatur fugiat molestias. Et quis enim vero.                                                                                                                                                                                                   |          2 | grumpy19   |    14 | 2020-10-03 19:22:00
-        191 | Ex beatae harum qui. Et minima qui. Molestiae quod commodi tenetur corporis id necessitatibus eum nobis. Ut dolorem eveniet. Ex dolor qui. Officia reprehenderit ducimus iure placeat.                                                                                                      |          2 | weegembump |    12 | 2020-08-05 13:17:00
-(6 rows)
+You are now connected to database "nc_news_test" as user "kp".
+ comment_id | body | article_id |    author     | votes |         created_at         
+------------+------+------------+---------------+-------+----------------------------
+         22 | test |          2 | icellusedkars |     0 | 2024-10-15 19:30:48.073242
+(1 row)
 
+INSERT 0 1
