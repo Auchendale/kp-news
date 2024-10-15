@@ -5,6 +5,8 @@ const fs = require("fs/promises")
 //---Controller Functions---
 //Topics controllers
 const { getTopics} = require("./controllers/topics.controller.js")
+//Article controllers
+const { getArticle } = require("./controllers/articles.controller.js")
 
 //--Endpoints--
 app.get("/api", (req, res) => {
@@ -16,12 +18,21 @@ app.get("/api", (req, res) => {
 
 app.get("/api/topics", getTopics)
 
+app.get("/api/articles/:article_id", getArticle)
+
 
 
 //--Errors--
 app.all("*", (req, res, next) => {
     res.status(404).send({ msg: `${req.originalUrl} is an invalid endpoint` }
     )
+})
+
+app.use((err, req, res, next) => {
+    if(err.code === "22P02"){
+        res.status(400).send({ msg: "Bad request"})
+    }
+    else next(err)
 })
 
 app.use((err, req, res, next) => {
