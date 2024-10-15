@@ -89,6 +89,49 @@ describe("GET /api/articles/:article_id", () => {
     })
 })
 
+describe("GET /api/articles/:article_id/comments", () => {
+    test("200 - returns an array of comment objects of a specified article", () => {
+        return request(app)
+            .get("/api/articles/1/comments")
+            .expect(200)
+            .then(({ body }) => {
+                expect(body.comments).toBeSortedBy("created_at", {descending: true})
+                body.comments.forEach((comment) => {
+                    expect(typeof comment.comment_id).toBe("number")
+                    expect(typeof comment.votes).toBe("number")
+                    expect(typeof comment.created_at).toBe("string")
+                    expect(typeof comment.author).toBe("string")
+                    expect(typeof comment.body).toBe("string")
+                    expect(typeof comment.article_id).toBe("number")
+                })
+            })
+    })
+    test("200 - returns an empty array when there are no comments on given article", () => {
+        return request(app)
+            .get("/api/articles/2/comments")
+            .expect(200)
+            .then(({ body }) => {
+                expect(body.comments).toHaveLength(0)
+            })
+    })
+    test("400 - returns an error message when given an invalid id", () => {
+        return request(app)
+            .get("/api/articles/flatPackGallows/comments")
+            .expect(400)
+            .then(({ body }) => {
+                expect(body.msg).toBe("Bad request")
+            })
+    })
+    test("404 - returns an error message when given a valid but non existent id", () => {
+        return request(app)
+            .get("/api/articles/11032001/comments")
+            .expect(404)
+            .then(({ body }) => {
+                expect(body.msg).toBe("Article does not exist")
+            })
+    })
+})
+
 describe("General Error Handling", () => {
     test("404 - error when non existent endpoint is entered", () => {
         return request(app)

@@ -40,6 +40,27 @@
           "comment_count": 6
         }
     }
-
+  },
+  "GET /api/articles/:article_id/comments": {
+    "description": "serves an array of comments from specified article",
+    "queries": [],
+    "exampleResponse": {
+      "comments": [
+        {
+          "body": "Nobis consequatur animi. Ullam nobis quaerat voluptates veniam.",
+          "votes": 7,
+          "author": "grumpy19",
+          "article_id": 4,
+          "created_at": 1577890920000
+        },
+        {
+          "body": "Iure quas est omnis porro. Est in est distinctio sequi consectetur rerum deserunt. Et et reiciendis. Consequatur distinctio sint porro neque molestiae.",
+          "votes": -4,
+          "author": "weegembump",
+          "article_id": 4,
+          "created_at": 1597414140000
+        }
+      ]
+    }
   }
 }
