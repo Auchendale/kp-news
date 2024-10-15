@@ -23,7 +23,6 @@ exports.selectArticles = () => {
             ORDER BY articles.created_at DESC;
         `)
         .then(({ rows }) => {
-            console.log(rows)
             return rows
         })
 }
