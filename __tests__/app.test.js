@@ -132,6 +132,65 @@ describe("GET /api/articles/:article_id/comments", () => {
     })
 })
 
+describe("POST /api/articles/:article_id/comments", () => {
+    test("201 - inserts a new comment to an article in the database", () => {
+        const newComment = {
+            username: "lurker",
+            body: "imo mitch isn't even that good"
+        }
+        return request(app)
+            .post("/api/articles/2/comments")
+            .send(newComment)
+            .expect(201)
+            .then(({ body }) => {
+                expect(body.comment[0].comment_id).toBe(19)
+                expect(body.comment[0].votes).toBe(0)
+                expect(typeof body.comment[0].created_at).toBe("string")
+                expect(body.comment[0].author).toBe("lurker")
+                expect(body.comment[0].body).toBe("imo mitch isn't even that good")
+                expect(body.comment[0].article_id).toBe(2)
+            })
+    })
+    test("400 - returns an error message when given an invalid id", () => {
+        const newComment = {
+            username: "lurker",
+            body: "imo mitch isn't even that good"
+        }
+        return request(app)
+            .post("/api/articles/flatPackGallows/comments")
+            .send(newComment)
+            .expect(400)
+            .then(({ body }) => {
+                expect(body.msg).toBe("Bad request")
+            })
+    })
+    test("400 - returns an error message when given a comment with no user", () => {
+        const newComment = {
+            body: "imo mitch isn't even that good"
+        }
+        return request(app)
+            .post("/api/articles/2/comments")
+            .send(newComment)
+            .expect(400)
+            .then(({ body }) => {
+                expect(body.msg).toBe("Bad request")
+            })
+    })
+    test("404 - returns an error message when given a valid but non existent id", () => {
+        const newComment = {
+            username: "lurker",
+            body: "imo mitch isn't even that good"
+        }
+        return request(app)
+            .post("/api/articles/11032001/comments")
+            .send(newComment)
+            .expect(404)
+            .then(({ body }) => {
+                expect(body.msg).toBe("Article does not exist")
+            })
+    })
+})
+
 describe("General Error Handling", () => {
     test("404 - error when non existent endpoint is entered", () => {
         return request(app)
