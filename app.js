@@ -2,13 +2,10 @@ const express = require('express')
 const app = express()
 const fs = require("fs/promises")
 
-//---Controller Functions---
-//Topics controllers
 const { getTopics} = require("./controllers/topics.controller.js")
-//Article controllers
 const { getArticle } = require("./controllers/articles.controller.js")
 
-//--Endpoints--
+
 app.get("/api", (req, res) => {
     fs.readFile("./endpoints.json", "utf-8").then((availableEndpoints) => {
         const parsedEndpoints = JSON.parse(availableEndpoints)
@@ -22,7 +19,6 @@ app.get("/api/articles/:article_id", getArticle)
 
 
 
-//--Errors--
 app.all("*", (req, res, next) => {
     res.status(404).send({ msg: `${req.originalUrl} is an invalid endpoint` }
     )
