@@ -33,7 +33,7 @@ describe("GET /api/topics", () => {
     })
 })
 
-describe.only("GET /api/articles", () => {
+describe("GET /api/articles", () => {
     test("200 - returns an array of article objects which is sorted by date", () => {
         return request(app)
             .get("/api/articles")
