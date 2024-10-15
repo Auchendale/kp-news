@@ -42,7 +42,7 @@ describe("GET /api/topics", () => {
     })
 })
 
-describe.only("GET /api/articles/:article_id", () => {
+describe("GET /api/articles/:article_id", () => {
     test("200 - returns an object of the specified article", () => {
         return request(app)
             .get("/api/articles/2")
@@ -58,8 +58,21 @@ describe.only("GET /api/articles/:article_id", () => {
                 expect(body.article[0].article_img_url).toBe('https://images.pexels.com/photos/158651/news-newsletter-newspaper-information-158651.jpeg?w=700&h=700')
             })
     })
-    test("", () => {
-        
+    test("400 - returns an error message when given an invalid id", () => { 
+        return request(app)
+            .get("/api/articles/flatPackGallows")
+            .expect(400)
+            .then(({ body }) => {
+                expect(body.msg).toBe("Bad request")
+            })
+    })
+    test("404 - returns an error message when given a valid but non existent id", () => {
+        return request(app)
+            .get("/api/articles/11032001")
+            .expect(404)
+            .then(({ body }) => {
+                expect(body.msg).toBe("Article does not exist")
+            })
     })
 })
 
