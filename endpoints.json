@@ -76,5 +76,25 @@
           "created_at": 1577890920000
         }  
   }
+  },
+  "PATCH /api/articles/:article_id": {
+    "description": "accepts an object of a vote change for a specified article and serves the updated article",
+    "queries": [],
+    "exampleResponse": {
+      "article": {
+          "title": "Seafood substitutions are increasing",
+          "topic": "cooking",
+          "author": "weegembump",
+          "body": "Text from the article..",
+          "created_at": "2018-05-30T15:59:13.341Z",
+          "votes": 17,
+          "comment_count": 6
+        }
+    }
+  },
+  "DELETE /api/comments/comment_id": {
+    "description": "deletes a specified comment",
+    "queries": [],
+    "exampleResponse": {}
   }
 }

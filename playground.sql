@@ -14,9 +14,11 @@
 --     ('icellusedkars', 'test', 2)
 -- RETURNING *;
 
-UPDATE articles
-SET
-votes = votes + 15
-WHERE
-article_id = 2
-RETURNING *;
+-- UPDATE articles
+-- SET
+-- votes = votes + 15
+-- WHERE
+-- article_id = 2
+-- RETURNING *;
+
+DELETE FROM comments WHERE comment_id = 11032001;
