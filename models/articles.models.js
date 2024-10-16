@@ -55,3 +55,21 @@ exports.insertComment = ({username, body, article_id}) => {
         return Promise.reject({status: 400, msg: "Bad request"})
     }
 }
+
+exports.updateArticle = ({article_id, inc_votes}) => {
+    if(article_id && inc_votes){
+        return db
+            .query(`
+                UPDATE articles
+                SET votes = votes + $2
+                WHERE article_id = $1
+                RETURNING *;
+                `, [article_id, inc_votes])
+            .then(({ rows }) => {
+                return rows
+            })
+    }
+    else{
+        return Promise.reject({status: 400, msg: "Bad request"})
+    }
+}
