@@ -257,6 +257,12 @@ describe("PATCH /api/articles/:article_id", () => {
     })
 })
 
+describe("DELETE /api/comments/comment_id", () => {
+    test("", () => {
+        
+    })
+})
+
 describe("General Error Handling", () => {
     test("404 - error when non existent endpoint is entered", () => {
         return request(app)
