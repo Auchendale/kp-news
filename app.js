@@ -3,7 +3,7 @@ const app = express()
 const fs = require("fs/promises")
 
 const { getTopics} = require("./controllers/topics.controller.js")
-const { getArticle, getArticles, getComments, postComment } = require("./controllers/articles.controller.js")
+const { getArticle, getArticles, getComments, postComment, patchArticle } = require("./controllers/articles.controller.js")
 
 app.use(express.json());
 
@@ -24,6 +24,7 @@ app.get("/api/articles/:article_id/comments", getComments)
 
 app.post("/api/articles/:article_id/comments", postComment)
 
+app.patch("/api/articles/:article_id", patchArticle)
 
 
 app.all("*", (req, res, next) => {

@@ -8,8 +8,15 @@
 
 -- SELECT * FROM comments WHERE article_id = 2;
 
-INSERT INTO comments 
-    (author, body, article_id)
-VALUES 
-    ('icellusedkars', 'test', 2)
+-- INSERT INTO comments 
+--     (author, body, article_id)
+-- VALUES 
+--     ('icellusedkars', 'test', 2)
+-- RETURNING *;
+
+UPDATE articles
+SET
+votes = votes + 15
+WHERE
+article_id = 2
 RETURNING *;
