@@ -53,6 +53,22 @@ describe("GET /api/articles", () => {
                 })
             })
     })
+    test("200 - returns a sorted array when a query and order are provided", () => {
+        return request(app)
+            .get("/api/articles?sort_by=author&order=asc")
+            .expect(200)
+            .then(({ body }) => {
+                expect(body.articles).toBeSortedBy("author", {descending: false})
+            })
+    })
+    test("400 - returns an error message when an invalid query is provided", () => {
+        return request(app)
+            .get("/api/articles?sort_by=ouagadougou")
+            .expect(400)
+            .then(({ body }) => {
+                expect(body.msg).toBe("Invalid query")
+            })
+    })
 })
 
 describe("GET /api/articles/:article_id", () => {
