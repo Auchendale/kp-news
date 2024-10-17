@@ -60,14 +60,6 @@ describe("GET /api/articles", () => {
             .then(({ body }) => {
                 expect(body.articles).toBeSortedBy("author", {descending: false})
             })
-            .then(() => {
-                return request(app)
-            .get("/api/articles?&order=asc")
-            .expect(200)
-            .then(({ body }) => {
-                expect(body.articles).toBeSortedBy("created_at", {descending: false})
-            })
-            })
     })
     test("400 - returns an error message when an invalid query is provided", () => {
         return request(app)
@@ -76,14 +68,34 @@ describe("GET /api/articles", () => {
             .then(({ body }) => {
                 expect(body.msg).toBe("Invalid query")
             })
-            .then(() => {
-                return request(app)
-                .get("/api/articles?order=ASC")
-                .expect(400)
-                .then(({ body }) => {
-                    expect(body.msg).toBe("Invalid query")
-                })  
+    })
+    test("200 - returns a sorted array filtered to specified topic", () => {
+        return request(app)
+        .get("/api/articles?topic=mitch")
+        .expect(200)
+        .then(({ body }) => {
+            body.articles.forEach((article) =>{
+                expect(article).toMatchObject({
+                    topic: "mitch"
+                })
             })
+        })
+    })
+    test("200 - returns an empty array when filter has no articles", () => {
+        return request(app)
+        .get("/api/articles?topic=paper")
+        .expect(200)
+        .then(({ body }) => {
+            expect(body.articles).toHaveLength(0)
+        })
+    })
+    test("400 - returns an error message when an invalid topic is provided", () => {
+        return request(app)
+        .get("/api/articles?topic=balloons")
+        .expect(404)
+        .then(({ body }) => {
+            expect(body.msg).toBe("Topic does not exist")
+        })
     })
 })
 

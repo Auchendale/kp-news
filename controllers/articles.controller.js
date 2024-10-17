@@ -1,4 +1,5 @@
 const { selectArticleByID, selectArticles, selectComments, insertComment, updateArticle } = require("../models/articles.models")
+const { selectTopics } = require("../models/topics.models.js")
 
 exports.getArticle = (req, res, next) => {
     const { article_id } = req.params
@@ -9,11 +10,22 @@ exports.getArticle = (req, res, next) => {
 }
 
 exports.getArticles = (req, res, next) => {
-    const { sort_by, order } = req.query
-    selectArticles(sort_by, order).then((articles) => {
-        res.status(200).send({ articles })
-    })
-    .catch(next)
+    const { sort_by, order, topic } = req.query
+    selectTopics()
+        .then((topics) => {
+            const validTopic = []
+            for(const topicObj of topics){
+                validTopic.push(topicObj.slug)
+            }
+            return validTopic
+        })
+        .then((validTopic) => {
+            return selectArticles(sort_by, order, topic, validTopic)
+        })
+        .then((articles) => {
+            res.status(200).send({ articles })
+        })
+        .catch(next)
 }
 
 exports.getComments = (req, res, next) => {
