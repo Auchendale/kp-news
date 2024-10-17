@@ -60,6 +60,14 @@ describe("GET /api/articles", () => {
             .then(({ body }) => {
                 expect(body.articles).toBeSortedBy("author", {descending: false})
             })
+            .then(() => {
+                return request(app)
+            .get("/api/articles?&order=asc")
+            .expect(200)
+            .then(({ body }) => {
+                expect(body.articles).toBeSortedBy("created_at", {descending: false})
+            })
+            })
     })
     test("400 - returns an error message when an invalid query is provided", () => {
         return request(app)
@@ -67,6 +75,14 @@ describe("GET /api/articles", () => {
             .expect(400)
             .then(({ body }) => {
                 expect(body.msg).toBe("Invalid query")
+            })
+            .then(() => {
+                return request(app)
+                .get("/api/articles?order=ASC")
+                .expect(400)
+                .then(({ body }) => {
+                    expect(body.msg).toBe("Invalid query")
+                })  
             })
     })
 })
