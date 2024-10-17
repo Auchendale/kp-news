@@ -13,15 +13,19 @@ exports.selectArticleByID = (article_id) => {
         })
 }
 
-exports.selectArticles = () => {
+exports.selectArticles = (sort_by = "created_at", order = "desc") => {
+    const validSortBy = ["author", "title", "article_id", "topic", "created_at", "votes", "comment_count"]
+    const validOrder = ["asc", "desc"]
+    if(!validSortBy.includes(sort_by) || !validOrder.includes(order)){
+        return Promise.reject({ status: 400, msg: "Invalid query"})
+    }
     return db
         .query(`
             SELECT articles.article_id, title, topic, articles.author, articles.created_at, articles.votes, article_img_url, COUNT(comment_id)::INT AS comment_count
             FROM articles
             LEFT JOIN comments ON comments.article_id = articles.article_id
             GROUP BY articles.article_id
-            ORDER BY articles.created_at DESC;
-        `)
+            ORDER BY articles.${sort_by} ${order};`)
         .then(({ rows }) => {
             return rows
         })
