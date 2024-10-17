@@ -1,6 +1,6 @@
 You are now connected to database "nc_news_test" as user "kp".
- article_id |                     title                     | topic |  author  |     created_at      | votes |                                            article_img_url                                            | comment_count 
-------------+-----------------------------------------------+-------+----------+---------------------+-------+-------------------------------------------------------------------------------------------------------+---------------
-          5 | UNCOVERED: catspiracy to bring down democracy | cats  | rogersop | 2020-08-03 14:14:00 |     0 | https://images.pexels.com/photos/158651/news-newsletter-newspaper-information-158651.jpeg?w=700&h=700 |             2
+ article_id |                 title                  | topic |    author     |   body    |     created_at      | votes |                                            article_img_url                                            | comment_count 
+------------+----------------------------------------+-------+---------------+-----------+---------------------+-------+-------------------------------------------------------------------------------------------------------+---------------
+          3 | Eight pug gifs that remind me of mitch | mitch | icellusedkars | some gifs | 2020-11-03 09:12:00 |     0 | https://images.pexels.com/photos/158651/news-newsletter-newspaper-information-158651.jpeg?w=700&h=700 |             2
 (1 row)
 
