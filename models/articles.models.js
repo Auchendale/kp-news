@@ -1,4 +1,5 @@
 const db = require("../db/connection")
+const { selectTopics } = require("../models/topics.models.js")
 
 exports.selectArticleByID = (article_id) => {
     return db
@@ -13,19 +14,29 @@ exports.selectArticleByID = (article_id) => {
         })
 }
 
-exports.selectArticles = (sort_by = "created_at", order = "desc") => {
+exports.selectArticles = (sort_by = "created_at", order = "desc", topic, validTopic) => {
     const validSortBy = ["author", "title", "article_id", "topic", "created_at", "votes", "comment_count"]
     const validOrder = ["asc", "desc"]
+    
     if(!validSortBy.includes(sort_by) || !validOrder.includes(order)){
         return Promise.reject({ status: 400, msg: "Invalid query"})
     }
+
+    if(topic && !validTopic.includes(topic)){
+        return Promise.reject({ status: 404, msg: "Topic does not exist"})
+    }
+
+    let queryString = `SELECT articles.article_id, title, topic, articles.author, articles.created_at, articles.votes, article_img_url, COUNT(comment_id)::INT AS comment_count FROM articles LEFT JOIN comments ON comments.article_id = articles.article_id`
+    
+    const queryVal = []
+
+    if(topic){
+        queryString += ` WHERE topic = $1`
+        queryVal.push(topic)
+    }
+
     return db
-        .query(`
-            SELECT articles.article_id, title, topic, articles.author, articles.created_at, articles.votes, article_img_url, COUNT(comment_id)::INT AS comment_count
-            FROM articles
-            LEFT JOIN comments ON comments.article_id = articles.article_id
-            GROUP BY articles.article_id
-            ORDER BY articles.${sort_by} ${order};`)
+        .query(`${queryString} GROUP BY articles.article_id ORDER BY articles.${sort_by} ${order};`, queryVal)
         .then(({ rows }) => {
             return rows
         })
