@@ -343,6 +343,48 @@ describe("GET /api/users", () => {
     })
 })
 
+describe("GET /api/users/:username", () => {
+    test("200 - returns an object of the specified user", () => {
+        return request(app)
+            .get("/api/users/lurker")
+            .expect(200)
+            .then(({ body }) => {
+                expect(body.user).toMatchObject({
+                    username: "lurker",
+                    name: "do_nothing",
+                    avatar_url: 'https://www.golenbock.com/wp-content/uploads/2015/01/placeholder-user.png'
+                })
+            })
+    })
+    test("404 - returns an error message when given an invalid id", () => {
+        return request(app)
+            .get("/api/users/kpnutsstuntman")
+            .expect(404)
+            .then(({ body }) => {
+                expect(body.msg).toBe("User does not exist")
+            })
+    })
+})
+
+describe("PATCH /api/comments/comment_id", () => {
+    test("200 - updates the votes on a comment then returns the update comment", () => {
+        const newVotes = { inc_votes: -17}
+        return request(app)
+            .patch("/api/comments/4")
+            .send(newVotes)
+            .expect(200)
+            .then(({ body }) => {
+                expect(body.comment).toMatchObject({
+                    body: " I carry a log — yes. Is it funny to you? It is not to me.",
+                    votes: -117,
+                    author: "icellusedkars",
+                    article_id: 1,
+                    created_at: "2020-02-23T12:01:00.000Z"
+                })
+            })
+    })
+})
+
 describe("General Error Handling", () => {
     test("404 - error when non existent endpoint is entered", () => {
         return request(app)

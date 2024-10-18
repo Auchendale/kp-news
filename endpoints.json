@@ -103,5 +103,24 @@
     "exampleResponse": {
       "users": [{ "username": "lurker", "name": "do_nothing", "avatar_url": "https://www.golenbock.com/wp-content/uploads/2015/01/placeholder-user.png" }]
     }
+  },
+  "GET /api/users/:username": {
+    "description": "serves an object of a specified user",
+    "queries": [],
+    "exampleResponse": {
+      "user": { "username": "lurker", "name": "do_nothing", "avatar_url": "https://www.golenbock.com/wp-content/uploads/2015/01/placeholder-user.png" }
+    }
+  },
+  "PATCH /api/comments/:comment_id": {
+    "description": "accepts an object of a vote change for a specified comment and serves the updated comment",
+    "queries": [],
+    "exampleResponse": {
+      "comment": {"body": " I carry a log — yes. Is it funny to you? It is not to me.",
+      "votes": -117,
+      "author": "icellusedkars",
+      "article_id": 1,
+      "created_at": 1582459260000}
+      
+    }
   }
 }
