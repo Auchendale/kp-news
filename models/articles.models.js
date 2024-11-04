@@ -20,7 +20,7 @@ exports.selectArticleByID = (article_id) => {
         })
 }
 
-exports.selectArticles = (sort_by = "created_at", order = "desc", topic, validTopic) => {
+exports.selectArticles = (sort_by = "created_at", order = "desc", topic, validTopic, limit = 10, p = 1) => {
     const validSortBy = ["author", "title", "article_id", "topic", "created_at", "votes", "comment_count"]
     const validOrder = ["asc", "desc"]
     
@@ -41,8 +41,13 @@ exports.selectArticles = (sort_by = "created_at", order = "desc", topic, validTo
         queryVal.push(topic)
     }
 
+    // const offset = 0
+    // const pageNumber = Number(p) - 1
+    // const limitNumber = Number(limit)
+    // // offset = limitNumber*pageNumber
+
     return db
-        .query(`${queryString} GROUP BY articles.article_id ORDER BY articles.${sort_by} ${order};`, queryVal)
+        .query(`${queryString} GROUP BY articles.article_id ORDER BY articles.${sort_by} ${order} LIMIT ${limit};`, queryVal)
         .then(({ rows }) => {
             return rows
         })

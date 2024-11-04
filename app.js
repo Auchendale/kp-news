@@ -4,8 +4,11 @@ const apiRouter = require("./subrouters/api.router.js")
 const articleRouter = require("./subrouters/articles.router.js");
 const usersRouter = require("./subrouters/users.router.js")
 const commentsRouter = require("./subrouters/comments.router.js")
+const cors = require('cors');
 
 const { getTopics} = require("./controllers/topics.controller.js")
+
+app.use(cors());
 
 app.use(express.json());
 

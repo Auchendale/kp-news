@@ -97,6 +97,30 @@ describe("GET /api/articles", () => {
             expect(body.msg).toBe("Topic does not exist")
         })
     })
+    test("200 - returns an array with 10 articles when no limit is provided", () => {
+        return request(app)
+            .get("/api/articles")
+            .expect(200)
+            .then(({ body }) => {
+                expect(body.articles).toHaveLength(10)
+            })
+    })
+    test("200 - returns an array with a given number of articles when limit is provided", () => {
+        return request(app)
+        .get("/api/articles?limit=8")
+        .expect(200)
+        .then(({ body }) => {
+            expect(body.articles).toHaveLength(8)
+        })
+    })
+    // test("200 - returns an array with 3 articles when a page is provided", () => {
+    //     return request(app)
+    //         .get("/api/articles?p=2")
+    //         .expect(200)
+    //         .then(({ body }) => {
+    //             expect(body.articles).toHaveLength(3)
+    //      })
+    // })
 })
 
 describe("GET /api/articles/:article_id", () => {
@@ -366,6 +390,7 @@ describe("GET /api/users/:username", () => {
     })
 })
 
+//Need to finish tests
 describe("PATCH /api/comments/comment_id", () => {
     test("200 - updates the votes on a comment then returns the update comment", () => {
         const newVotes = { inc_votes: -17}

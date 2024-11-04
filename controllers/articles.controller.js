@@ -10,7 +10,7 @@ exports.getArticle = (req, res, next) => {
 }
 
 exports.getArticles = (req, res, next) => {
-    const { sort_by, order, topic } = req.query
+    const { sort_by, order, topic, limit} = req.query
     selectTopics()
         .then((topics) => {
             const validTopic = []
@@ -20,7 +20,7 @@ exports.getArticles = (req, res, next) => {
             return validTopic
         })
         .then((validTopic) => {
-            return selectArticles(sort_by, order, topic, validTopic)
+            return selectArticles(sort_by, order, topic, validTopic, limit)
         })
         .then((articles) => {
             res.status(200).send({ articles })
